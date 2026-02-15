@@ -1,0 +1,6 @@
+/vitrinenv
+/backend/__pycache__
+/movie-vitrine/node_modules
+/movie-vitrine/.angular
+/movie-vitrine/.vscode
+/backend/RNNModel/model.weights.h5
