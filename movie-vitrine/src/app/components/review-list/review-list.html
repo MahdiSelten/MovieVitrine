@@ -1,0 +1,25 @@
+<div class="reviews-section">
+  <h2>Reviews ({{ reviews.length }})</h2>
+  
+  <div *ngIf="reviews.length === 0" class="no-reviews">
+    <p>No reviews yet. Be the first to review this movie!</p>
+  </div>
+
+  <div *ngFor="let review of reviews" class="review-card">
+    <div class="review-header">
+      <span class="review-author">{{ review.userName || 'Anonymous' }}</span>
+      <span class="review-rating">⭐ {{ review.rating }}/5</span>
+    </div>
+    
+    <div class="review-content">
+      <p>{{ review.content }}</p>
+    </div>
+    
+    <div class="review-footer">
+      <span class="review-date">{{ review.createdAt | date:'medium' }}</span>
+      <span class="sentiment-indicator" [class.positive]="review.isPositive" [class.negative]="!review.isPositive">
+        {{ review.isPositive ? '😊 Positive' : '😞 Negative' }}
+      </span>
+    </div>
+  </div>
+</div>

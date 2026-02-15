@@ -1,0 +1,21 @@
+<div class="movie-list-container">
+  <h1>Movie Collection</h1>
+  
+  <div *ngIf="!isLoading && !error" class="movies-grid">
+    <div *ngFor="let movie of movies" class="movie-card" (click)="goToMovieDetail(movie.id)">
+      <div class="movie-poster">
+        <div class="poster-placeholder">🎬</div>
+      </div>
+      <div class="movie-info">
+        <h3>{{ movie.title }}</h3>
+        <p class="movie-year">{{ movie.release_date | date:'yyyy' }}</p>
+        <p class="movie-id"><strong>ID:</strong> {{ movie.id }}</p>
+        <p class="movie-index" *ngIf="movie.index"><strong>Index:</strong> {{ movie.index }}</p>
+        <div class="movie-rating">
+          <span class="rating-star">⭐</span>
+          <span>{{ movie.vote_average }}/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

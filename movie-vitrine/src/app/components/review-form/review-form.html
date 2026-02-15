@@ -1,0 +1,58 @@
+<div class="review-form-section" *ngIf="isLoggedIn">
+  <h3>Write a Review</h3>
+  
+  <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()" class="review-form">
+    <div class="form-group">
+      <label for="rating">Your Rating</label>
+      <div class="rating-stars">
+        <span 
+          *ngFor="let star of [1,2,3,4,5]" 
+          class="star" 
+          [class.active]="star <= reviewForm.get('rating')?.value"
+          (click)="setRating(star)">
+          ⭐
+        </span>
+      </div>
+      <div class="rating-text">Selected: {{ reviewForm.get('rating')?.value }}/5</div>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Your Review</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        class="form-control"
+        rows="4"
+        placeholder="Share your thoughts about this movie..."></textarea>
+      <div *ngIf="reviewForm.get('content')?.invalid && reviewForm.get('content')?.touched" 
+           class="error-message">
+        Review must be at least 10 characters
+      </div>
+    </div>
+
+    <div *ngIf="sentimentScore > 0" class="sentiment-preview">
+      <strong>Sentiment Analysis:</strong> 
+      <span [class.positive]="isPositive" [class.negative]="!isPositive">
+        {{ isPositive ? '😊 Positive' : '😞 Negative' }}
+      </span>
+      <span class="confidence">
+        (Score: {{ sentimentScore.toFixed(3) }} | {{ (getConfidence() * 100).toFixed(1) }}% confidence)
+      </span>
+    </div>
+
+    <button 
+      type="submit" 
+      class="submit-btn" 
+      [disabled]="reviewForm.invalid || isLoading">
+      {{ isLoading ? 'Analyzing...' : 'Submit Review' }}
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!isLoggedIn" class="login-prompt">
+  <p>Please <a routerLink="/login">login</a> to write a review.</p>
+</div>

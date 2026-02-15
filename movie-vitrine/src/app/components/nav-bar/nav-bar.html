@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-logo">MovieVitrine</a>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/movies" routerLinkActive="active">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact Us</a>
+      </li>
+      
+      <li class="nav-item" *ngIf="isLoggedIn(); else loginLinks">
+        <div class="user-menu">
+          <span class="user-greeting">Hello, {{ currentUser?.username }}</span>
+          <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </li>
+      
+      <ng-template #loginLinks>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>
